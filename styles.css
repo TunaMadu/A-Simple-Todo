@@ -59,7 +59,7 @@ form {
   flex: 1;
   padding: 2rem;
   font-size: 2.4rem;
-  caret-color: #9584ca;
+  caret-color: #fffff3;
   color: #fffff3;
   background-color: #4d5865;
   border-radius: 1.2rem;
@@ -87,6 +87,7 @@ form {
 .tasks {
   display: flex;
   flex-direction: column;
+  gap: 3.5rem;
   max-width: 120rem;
   padding: 0 1.5rem;
   margin: 0 auto;
@@ -102,8 +103,13 @@ form {
   flex: 1;
 }
 .userInput {
-  width: auto;
-  font-size: 2rem;
+  width: 100%;
+  font-size: 1.7rem;
+}
+.userInput:not(readonly) {
+  font-size: 1.8rem;
+  color: #fffff3;
+  caret-color: #fffff3;
 }
 
 .actions {
@@ -116,4 +122,23 @@ form {
   font-weight: 700;
   padding: 0.02rem;
   cursor: pointer;
+}
+.actions button:hover {
+  color: #9584ca;
+  transition: all 0.4s;
+}
+
+.actions button:active {
+  color: rgba(149, 132, 202, 0.525);
+}
+
+#important-button {
+  color: #9584ca;
+}
+#important-button:active {
+  color: rgba(149, 132, 202, 0.525);
+}
+
+#important-task {
+  box-shadow: 0 0 10px 0 rgba(149, 132, 202, 0.75);
 }

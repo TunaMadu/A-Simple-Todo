@@ -29,14 +29,22 @@
     <main>
       <section class="task-section">
         <div class="tasks">
+          <!-- task with the important keyword  -->
+          <div class="task" id="important-task">
+            <div class="task-content">
+              <input type="text" class="userInput" readonly />
+            </div>
+            <div class="actions">
+              <button id="important-button">Important</button>
+              <button>Completed</button>
+              <button>Edit</button>
+              <button>Remove</button>
+            </div>
+          </div>
+          <!-- task without the important applied -->
           <div class="task">
             <div class="task-content">
-              <input
-                type="text"
-                class="userInput"
-                placeholder="something important"
-                readonly
-              />
+              <input type="text" class="userInput" />
             </div>
             <div class="actions">
               <button>Important</button>
