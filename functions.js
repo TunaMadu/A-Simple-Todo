@@ -47,5 +47,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     tasks.appendChild(newTask);
     inputField.value = "";
+
+    // lets begin with the important
+
+    importantButton.addEventListener("click", () => {
+      if (newTask.id === "important-task") {
+        newTask.id = "";
+        importantButton.id = "";
+      } else {
+        newTask.id = "important-task";
+        importantButton.id = "important-button";
+      }
+    });
+
+    // remove button
+
+    removeButton.addEventListener("click", () => {
+      newTask.remove();
+    });
+
+    // edit button
+
+    editButton.addEventListener("click", () => {
+      if (editButton.innerText === "Edit") {
+        editButton.innerText = "Save";
+        newTaskText.removeAttribute("readonly");
+      } else {
+        newTaskText.setAttribute("readonly", "readonly");
+        editButton.innerText = "Edit";
+      }
+    });
   });
 });
