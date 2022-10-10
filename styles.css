@@ -9,6 +9,7 @@ white-color:#FFFFF3
 
 gray-color:#566270
  - darker-gray:#4d5865
+ - lighter-gray:#9aa1a9
 
 
 */
@@ -93,14 +94,14 @@ form {
 .tasks {
   display: flex;
   flex-direction: column;
-  gap: 3.5rem;
+  gap: 4.5rem;
   max-width: 120rem;
   padding: 0 5rem;
   margin: 0 auto;
 }
 .task {
   display: flex;
-  padding: 1.5rem;
+  padding: 2rem;
   border-radius: 1rem;
   background-color: #4d5865;
   align-items: baseline;
@@ -111,12 +112,13 @@ form {
 .userInput {
   width: 100%;
   font-size: 1.8rem;
-  color: #9aa1a9;
+  color: #ccccc2;
 }
-.userInput:not(:readonly) {
-  font-size: 1.85rem;
+.userInput:not(:read-only) {
+  font-size: 1.8rem;
   color: #fffff3;
   caret-color: #fffff3;
+  transition: all 0.2s;
 }
 
 .actions {
@@ -125,7 +127,7 @@ form {
 }
 .actions button {
   font-size: 1.5rem;
-  color: #b3b3aa;
+  color: #9d9f99;
   font-weight: 700;
   padding: 0.02rem;
   cursor: pointer;
@@ -148,5 +150,5 @@ form {
 }
 
 #important-task {
-  box-shadow: 0 0 10px 0 rgba(149, 132, 202, 0.75);
+  box-shadow: 0 0 10px 3.5px rgba(149, 132, 202, 0.75);
 }
