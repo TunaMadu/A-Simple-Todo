@@ -15,140 +15,142 @@ gray-color:#566270
 */
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Noto Sans", serif;
-  font-weight: 500;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans', serif;
+    font-weight: 500;
 }
 
 html {
-  font-size: 62.5%;
+    font-size: 62.5%;
 }
 
 body {
-  color: #fffff3;
-  background-color: #566270;
+    color: #fffff3;
+    background-color: #566270;
 }
 header {
-  color: #e0e3da;
-  max-width: 120rem;
-  padding: 6rem 0 5.5rem 0;
-  margin: 0 auto;
+    color: #e0e3da;
+    max-width: 120rem;
+    padding: 6rem 0 5.5rem 0;
+    margin: 0 auto;
 }
 
 h1 {
-  letter-spacing: -3px;
-  font-size: 8.6rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 4rem;
+    letter-spacing: -3px;
+    font-size: 8.6rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 4rem;
 }
 /* removes any default button/input styling */
 input,
 button {
-  background: none;
-  outline: none;
-  border: none;
+    background: none;
+    outline: none;
+    border: none;
 }
 
 form {
-  display: flex;
+    display: flex;
 }
 
 #task-input {
-  flex: 1;
-  padding: 2rem;
-  font-size: 2.4rem;
-  caret-color: #fffff3;
-  color: #fffff3;
-  background-color: #454e5a;
-  border-radius: 1.2rem;
-  margin-right: 1rem;
+    flex: 1;
+    padding: 2rem;
+    font-size: 2.4rem;
+    caret-color: #fffff3;
+    color: #fffff3;
+    background-color: #454e5a;
+    border-radius: 1.2rem;
+    margin-right: 1rem;
 }
 #task-input:focus {
-  transition: 0.5s;
-  box-shadow: 0 0 8px 0 rgba(255, 255, 243, 0.409);
+    transition: 0.5s;
+    box-shadow: 0 0 8px 0 rgba(255, 255, 243, 0.409);
 }
 #task-input::placeholder {
-  color: #b3b6ae;
+    color: #b3b6ae;
 }
 #task-submit {
-  cursor: pointer;
-  padding: 1.2rem 1.7rem;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #fffff3;
-  background-color: #9584ca;
-  border-radius: 1rem;
-  transition: 0.2s;
+    cursor: pointer;
+    padding: 1.2rem 1.7rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fffff3;
+    background-color: #9584ca;
+    border-radius: 1rem;
+    transition: 0.2s;
 }
 #task-submit:hover {
-  transition: 0.5s;
-  opacity: 0.8;
+    transition: 0.5s;
+    opacity: 0.8;
 }
 #task-submit:active {
-  transition: 0.3s;
-  opacity: 0.6;
+    transition: 0.3s;
+    opacity: 0.6;
 }
 .tasks {
-  display: flex;
-  flex-direction: column;
-  gap: 4.5rem;
-  max-width: 120rem;
-  padding: 0 5rem;
-  margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4.5rem;
+    max-width: 120rem;
+    padding: 0 5rem;
+    margin: 0 auto;
 }
 .task {
-  display: flex;
-  padding: 2rem;
-  border-radius: 1rem;
-  background-color: #4d5865;
-  align-items: baseline;
+    display: flex;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: #4d5865;
+    align-items: baseline;
 }
 .task-content {
-  flex: 1;
+    flex: 1;
 }
 .userInput {
-  width: 100%;
-  font-size: 1.8rem;
-  color: #ccccc2;
+    width: 100%;
+    font-size: 1.8rem;
+    color: #ccccc2;
 }
 .userInput:not(:read-only) {
-  font-size: 1.8rem;
-  color: #fffff3;
-  caret-color: #fffff3;
-  transition: all 0.2s;
+    font-size: 1.8rem;
+    color: #fffff3;
+    caret-color: #fffff3;
+    transition: all 0.2s;
 }
 
 .actions {
-  display: flex;
-  gap: 2rem;
+    display: flex;
+    /* pointer-events: none; */
+
+    gap: 2rem;
 }
 .actions button {
-  font-size: 1.5rem;
-  color: #9d9f99;
-  font-weight: 700;
-  padding: 0.02rem;
-  cursor: pointer;
-  transition: 0.25s;
+    font-size: 1.5rem;
+    color: #9d9f99;
+    font-weight: 700;
+    padding: 0.02rem;
+    cursor: pointer;
+    transition: 0.25s;
 }
 .actions button:hover {
-  color: #9584ca;
-  transition: all 0.4s;
+    color: #9584ca;
+    transition: all 0.4s;
 }
 
 .actions button:active {
-  color: rgba(149, 132, 202, 0.525);
+    color: rgba(149, 132, 202, 0.525);
 }
 
 #important-button {
-  color: #9584ca;
+    color: #9584ca;
 }
 #important-button:active {
-  color: rgba(149, 132, 202, 0.525);
+    color: rgba(149, 132, 202, 0.525);
 }
 
 #important-task {
-  box-shadow: 0 0 10px 3.5px rgba(149, 132, 202, 0.75);
+    box-shadow: 0 0 10px 3.5px rgba(149, 132, 202, 0.75);
 }

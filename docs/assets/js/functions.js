@@ -16,9 +16,9 @@ const createNewtask = function (input) {
   <input type="text" value ="${input}" class="userInput" readonly />
   </div>
   <div class="actions">
-  <button class = "action-btn" id="">Important</button>
-  <button class = "action-btn" >Edit</button>
-  <button class = "action-btn" >Remove</button>
+  <button class = "action-btn" id="" >Important</button>
+  <button class = "action-btn" id = "edit" >Edit</button>
+  <button class = "action-btn" id = "remove" >Remove</button>
   </div>
   </div>`;
 };
@@ -33,6 +33,35 @@ const enableImportant = function (parentElem, childElem) {
     childElem.id = 'important-button';
 };
 
+const buttonLogic = function (e, triggerEvent, element) {
+    if (e.target.getAttribute('id') === '') {
+        enableImportant(element.parentElement, element.firstElementChild);
+    } else if (e.target.getAttribute('id') === 'important-button') {
+        disableImportant(element.parentElement, element.firstElementChild);
+    }
+
+    const adjacentParentContainer = element.previousElementSibling;
+
+    //edit button
+    if (e.target.getAttribute('id') === 'edit' && !triggerEvent) {
+        e.target.innerText = 'Save';
+        adjacentParentContainer.firstElementChild.removeAttribute('readonly');
+        triggerEvent = true;
+    } else if (e.target.getAttribute('id') === 'edit' && triggerEvent) {
+        e.target.innerText = 'Edit';
+        adjacentParentContainer.firstElementChild.setAttribute(
+            'readonly',
+            'readonly'
+        );
+        triggerEvent = false;
+    }
+
+    //remove button
+    if (e.target.getAttribute('id') === 'remove') {
+        element.parentElement.remove();
+    }
+};
+
 /**
  * Main app logic.
  */
@@ -42,9 +71,6 @@ function app() {
     let inputField = document.querySelector('#task-input');
     let tasks = document.querySelector('.tasks');
 
-    // creates arrays to store regular tasks and important tasks separately
-    let taskArray = [];
-
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 
@@ -52,56 +78,19 @@ function app() {
 
         // creates new task
         tasks.innerHTML += createNewtask(inputField.value);
-        taskArray.push(tasks.lastElementChild);
 
         //clear input field
         inputField.value = '';
 
-        // button logic
-        const actionButtons = document.querySelector('.actions');
+        // button selector
+        const actionButtons = document.querySelectorAll('.actions');
+        let triggerEvent = false;
 
-        //important button
-        //TODO the button logic is giving me some issues though i think it has to deal with even delagation and just dom concepts in general!
-        // actionButtons.addEventListener('click', (event) => {
-
-        //     if (actionButtons.parentElement.id === 'important-task') {
-        //         disableImportant(
-        //             actionButtons.parentElement,
-        //             actionButtons.firstElementChild
-        //         );
-        //     } else {
-        //         enableImportant(
-        //             actionButtons.parentElement,
-        //             actionButtons.firstElementChild
-        //         );
-        //     }
-        // });
-
-        // // remove button
-
-        // // will remove the task in array
-        // removeButton.addEventListener('click', () => {
-        //     for (let i = 0; i < taskArray.length; i++) {
-        //         let checkImpTaskLength = importantTaskArray.length >= 1;
-        //         if (checkImpTaskLength && importantTaskArray[i] === newTask) {
-        //             importantTaskArray.splice(i, 1);
-        //         }
-
-        //         if (taskArray[i] === newTask) {
-        //             taskArray.splice(i, 1);
-        //         }
-        //     }
-        //     newTask.remove();
-        // });
-
-        // // edit button
-        // editButton.addEventListener('click', () => {
-        //     if (editButton.innerText === 'Edit') {
-        //         editButton.innerText = 'Save';
-        //         newTaskText.removeAttribute('readonly');
-        //     } else {
-        //         newTaskText.setAttribute('readonly', 'readonly');
-        //         editButton.innerText = 'Edit';
-        //     }
+        actionButtons.forEach((element) => {
+            element.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'BUTTON') return;
+                buttonLogic(e, triggerEvent, element);
+            });
+        });
     });
 }
