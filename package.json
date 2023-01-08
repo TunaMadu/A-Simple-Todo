@@ -1,0 +1,27 @@
+{
+    "name": "cus1172-project-2",
+    "version": "1.0.0",
+    "description": "",
+    "default": "index.js",
+    "directories": {
+        "doc": "docs"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "parcel ./docs/index.html",
+        "build": "parcel build ./docs/index.html --dist-dir"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TunaMadu/CUS1172-project-2.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/TunaMadu/CUS1172-project-2/issues"
+    },
+    "homepage": "https://github.com/TunaMadu/CUS1172-project-2#readme",
+    "devDependencies": {
+        "parcel": "^2.8.2"
+    }
+}
