@@ -1,10 +1,4 @@
 /**
- * Will run the main logic once everything is loaded on DOM
- */
-
-document.addEventListener('DOMContentLoaded', app);
-
-/**
  * Will create a new task and will set the input value given by its @param
  * @param {text} input will be from the user
  * @returns will string containg html to be appended
@@ -12,58 +6,144 @@ document.addEventListener('DOMContentLoaded', app);
 
 const createNewtask = function (input) {
     return `<div class="task" id="">
-  <div class="task-content">
-  <input type="text" value ="${input}" class="userInput" readonly />
-  </div>
-  <div class="actions">
-  <button class = "action-btn" id="" >Important</button>
-  <button class = "action-btn" id = "edit" >Edit</button>
-  <button class = "action-btn" id = "remove" >Remove</button>
-  </div>
-  </div>`;
+    <div class="task-content">
+    <input type="text" value ="${input}" class="userInput" readonly />
+    </div>
+    <div class="actions">
+    <button class = "action-btn" id="" >Important</button>
+    <button class = "action-btn">Edit</button>
+    <button class = "action-btn">Remove</button>
+    </div>
+    </div>`;
 };
 
-const disableImportant = function (parentElem, childElem) {
-    parentElem.id = '';
-    childElem.id = '';
+/**
+ *
+ * gets the child element that contains the input value on the HTML
+ * @param {HTMLDivElement} btnContainer  container that contains the buttons
+ * @returns its adajcent sibling's child element that is an input html tag
+ *
+ */
+const getTaskText = function (btnContainer) {
+    return btnContainer.parentElement.querySelector('.userInput');
 };
 
-const enableImportant = function (parentElem, childElem) {
-    parentElem.id = 'important-task';
-    childElem.id = 'important-button';
+/**
+ *
+ * This will "disable" the imporntant button on the screen, removing the specified
+ * CSS classes that contains the styles to show its an important task on the screen
+ * @param {HTMLDivElement} btnContainer container that contains the buttons
+ * @param {HTMLButtonElement} currentBtn the button that triggered event
+ *
+ */
+const disableImportant = function (btnContainer, currentBtn) {
+    btnContainer.parentElement.id = '';
+    currentBtn.id = '';
 };
 
-const buttonLogic = function (e, triggerEvent, element) {
-    if (e.target.getAttribute('id') === '') {
-        enableImportant(element.parentElement, element.firstElementChild);
-    } else if (e.target.getAttribute('id') === 'important-button') {
-        disableImportant(element.parentElement, element.firstElementChild);
+/**
+ *
+ * This will "disable" the imporntant button on the screen, removing the specified
+ * CSS classes that contains the styles to show its an important task on the screen
+ * @param {HTMLDivElement} btnContainer container that contains the buttons
+ * @param {HTMLButtonElement} currentBtn the button that triggered event
+ *
+ */
+const enableImportant = function (btnContainer, currentBtn) {
+    btnContainer.parentElement.id = 'important-task';
+    currentBtn.id = 'important-button';
+};
+
+/**
+ *
+ * This will be the controller function for @function enableImportant and @function disableImportant
+ * will trigger either or depending on the id
+ * @param {HTMLDivElement} btnContainer container that contains the buttons
+ * @param {HTMLButtonElement} currentBtn will be the "Important" button
+ *
+ */
+const importantButtonController = function (btnContainer, currentBtn) {
+    if (currentBtn.id === '') {
+        enableImportant(btnContainer, currentBtn);
+        return;
     }
+    disableImportant(btnContainer, currentBtn);
+};
 
-    const adjacentParentContainer = element.previousElementSibling;
+/**
+ *
+ * Contains the logic for when we click on a button that is "Edit".
+ * It will convert the inner text to "Save". Uses @function getTaskText to get the
+ * tasks current text. To set its default atribute value of readonly.
+ *
+ * @param {HTMLDivElement} btnContainer container that contains the buttons
+ * @param {HTMLButtonElement} currentBtn will be the "Edit" button
+ *
+ */
+const editButtonLogic = function (btnContainer, currentBtn) {
+    currentBtn.innerText = 'Save';
+    getTaskText(btnContainer).removeAttribute('readonly');
+};
 
-    //edit button
-    if (e.target.getAttribute('id') === 'edit' && !triggerEvent) {
-        e.target.innerText = 'Save';
-        adjacentParentContainer.firstElementChild.removeAttribute('readonly');
-        triggerEvent = true;
-    } else if (e.target.getAttribute('id') === 'edit' && triggerEvent) {
-        e.target.innerText = 'Edit';
-        adjacentParentContainer.firstElementChild.setAttribute(
-            'readonly',
-            'readonly'
-        );
-        triggerEvent = false;
-    }
+/**
+ *
+ * Contains logic for when we click on a button that is "Save".
+ * It will convert the inner text to "edit". Uses @function getTaskText to get the
+ * tasks current text. To set its default atribute value of readonly.
+ *
+ * @param {HTMLDivElement} btnContainer container that contains the buttons
+ * @param {HTMLButtonElement} currentBtn will be the "Save" button
+ *
+ */
+const saveButtonLogic = function (btnContainer, currentBtn) {
+    currentBtn.innerText = 'Edit';
+    getTaskText(btnContainer).setAttribute('readonly', 'readonly');
+};
 
-    //remove button
-    if (e.target.getAttribute('id') === 'remove') {
-        element.parentElement.remove();
+/**
+ *
+ * Will remove the task container from the page
+ * @param {HTMLDivElement} btnContainer container that contains the buttons
+ *
+ */
+const removeButtonLogic = function (btnContainer) {
+    btnContainer.parentElement.remove();
+};
+
+/**
+ *
+ * Button logic controller. uses a switch statement that will trigger
+ * @function removeButtonLogic,
+ * @function importantButtonController,
+ * @function editButtonLogic,
+ * @function saveButtonLogic
+ * depending on the element's inner text that triggered an event.
+ *
+ * @param {HTMLDivElement} parent container that will contain buttons
+ * @param {HTMLButtonElement} element will be the button that triggered the event
+ *
+ */
+const buttonLogicController = function (parent, element) {
+    switch (element.innerText) {
+        case 'Remove':
+            removeButtonLogic(parent);
+            break;
+        case 'Important':
+            importantButtonController(parent, element);
+            break;
+        case 'Edit':
+            editButtonLogic(parent, element);
+            break;
+        case 'Save':
+            saveButtonLogic(parent, element);
+            break;
     }
 };
 
 /**
+ *
  * Main app logic.
+ *
  */
 
 function app() {
@@ -81,16 +161,16 @@ function app() {
 
         //clear input field
         inputField.value = '';
+    });
 
-        // button selector
-        const actionButtons = document.querySelectorAll('.actions');
-        let triggerEvent = false;
+    // Event delegation!
 
-        actionButtons.forEach((element) => {
-            element.addEventListener('click', (e) => {
-                if (e.target.tagName !== 'BUTTON') return;
-                buttonLogic(e, triggerEvent, element);
-            });
-        });
+    tasks.addEventListener('click', function (e) {
+        if (e.target.tagName !== 'BUTTON') return;
+
+        buttonLogicController(e.target.parentElement, e.target);
     });
 }
+
+// Will run app once DOM has fnished loading.
+document.addEventListener('DOMContentLoaded', app);
